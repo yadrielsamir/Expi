@@ -27,8 +27,7 @@ class _HomePageState extends State<HomePage> {
     }
     else {
       setState(() {
-        showingProducts.add(Product(
-            name: _controller.text, expirationDate: productService.productDate(_selectedDate!)));
+        showingProducts.add(Product(name: _controller.text, expirationDate: productService.productDate(_selectedDate!)));
         if (!productService.productInList(_controller.text)) {
           productService.addProduct(Product(name: _controller.text, expirationDate: productService.productDate(_selectedDate!)));
         }
@@ -38,15 +37,15 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  void addNewProduct(){
+  void addNewProduct() {
     showDialog(context: context, builder: (context){
       return DialogBox(
         controller: _controller,
-        onSave: saveNewProduct,
-        onCancel: () => Navigator.of(context).pop(),
         onDateSelected: (selectedDate){
           _selectedDate = selectedDate;
         },
+        onSave: saveNewProduct,
+        onCancel: () => Navigator.of(context).pop(),
       );
     });
   }
@@ -56,6 +55,13 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.grey[300],
       appBar: AppBar(
+        actions: [
+        IconButton(
+          icon: const Icon(Icons.menu, size: 30,),
+          onPressed: () {
+
+          }),
+        ],
         title: const Row(
           children: [
             Text(
@@ -68,7 +74,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
-        backgroundColor: Colors.grey,
+        backgroundColor: Colors.grey[300]
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: addNewProduct,

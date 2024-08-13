@@ -69,6 +69,9 @@ class _DialogBoxState extends State<DialogBox> {
             ),
             Flexible(
               child: TableCalendar(
+                  onPageChanged: (focusedDay) {
+                    _focusedDay = focusedDay;
+                  },
                   focusedDay: today,
                   firstDay: DateTime.utc(2010, 10, 16),
                   lastDay: DateTime.utc(2030, 10, 14),
@@ -77,6 +80,7 @@ class _DialogBoxState extends State<DialogBox> {
                     setState(() {
                       _selectedDay = selectedDay;
                       _focusedDay = focusedDay;
+                      widget.onDateSelected(_selectedDay);
                     });
                   }),
             ),
@@ -86,7 +90,6 @@ class _DialogBoxState extends State<DialogBox> {
                 // save button
                 MyButton(buttonName: "Save", onPressed: (){
                   widget.onSave();
-                  widget.onDateSelected(_selectedDay);
                 }),
 
                 const SizedBox(width: 8),

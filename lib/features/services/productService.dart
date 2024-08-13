@@ -26,6 +26,11 @@ class ProductService {
    }
 
    int productDate(DateTime date){
+    print('$date');
+    print('${DateTime.now()}');
+    print('${DateTime.now().difference(date)}');
+    print('${date.difference(DateTime.now()).inHours}');
+
     return date.difference(DateTime.now()).inDays;
    }
 
