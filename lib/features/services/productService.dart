@@ -1,10 +1,8 @@
 import 'package:expiration_date/features/data/modles.dart';
+import 'package:expiration_date/features/services/chobaniService.dart';
 
 class ProductService {
-   final List<Product> _productList = [
-    Product(name: 'Milk', expirationDate: 2),
-    Product(name: 'Eggs', expirationDate: 2),
-    Product(name: 'Bread', expirationDate: 2),];
+   final List<Product> _productList = chobaniService.getChobaniList();
 
   List<Product> get productList => _productList;
 
@@ -26,11 +24,6 @@ class ProductService {
    }
 
    int productDate(DateTime date){
-    print('$date');
-    print('${DateTime.now()}');
-    print('${DateTime.now().difference(date)}');
-    print('${date.difference(DateTime.now()).inHours}');
-
     return date.difference(DateTime.now()).inDays;
    }
 

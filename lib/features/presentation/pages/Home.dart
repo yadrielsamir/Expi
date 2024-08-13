@@ -1,5 +1,6 @@
 import 'package:expiration_date/core/util/dialogBox.dart';
 import 'package:expiration_date/features/presentation/pages/Expired.dart';
+import 'package:expiration_date/features/presentation/pages/Products.dart';
 import 'package:expiration_date/features/services/productService.dart';
 import 'package:flutter/material.dart';
 import 'package:expiration_date/features/data/modles.dart';
@@ -14,10 +15,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  List<Product> showingProducts = [Product(name: 'Butter', expirationDate: 2)];
+  List<Product> showingProducts = [];
 
   final _controller = TextEditingController();
   DateTime? _selectedDate;
+  int currentPageIndex = 0;
 
 
 
@@ -27,9 +29,9 @@ class _HomePageState extends State<HomePage> {
     }
     else {
       setState(() {
-        showingProducts.add(Product(name: _controller.text, expirationDate: productService.productDate(_selectedDate!)));
+        showingProducts.add(Product(name: _controller.text, expirationDate: productService.productDate(_selectedDate!), flavor: 'none', size: 0));
         if (!productService.productInList(_controller.text)) {
-          productService.addProduct(Product(name: _controller.text, expirationDate: productService.productDate(_selectedDate!)));
+          productService.addProduct(Product(name: _controller.text, expirationDate: 0, flavor: 'none', size: 0));
         }
         _controller.clear();
       });
@@ -86,9 +88,10 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.grey[500],
           onDestinationSelected: (int index){
           setState(() {
-
+            currentPageIndex = index;
           });
           },
+          selectedIndex: currentPageIndex,
           destinations: const <Widget>[
             NavigationDestination(
               selectedIcon: Icon(Icons.home),
@@ -108,37 +111,43 @@ class _HomePageState extends State<HomePage> {
           ]
       ),
 
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          const SizedBox(height: 10.0),
+      body: <Widget>[
+         Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const SizedBox(height: 10.0),
 
-          Expanded(
-            child: ListView.builder(
-              itemCount: showingProducts.length,
-              itemBuilder: (context, index){
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey, )
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(showingProducts[index].getName(), style: const TextStyle(fontSize: 16)),
+            Expanded(
+              child: ListView.builder(
+                itemCount: showingProducts.length,
+                itemBuilder: (context, index){
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey, )
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                              '${showingProducts[index].getName()} (${showingProducts[index].getFlavor()}) (${showingProducts[index].getSize()}oz)',
+                              style: const TextStyle(fontSize: 16)),
 
-                        Text('${showingProducts[index].getExpirationDate()} days left', style: const TextStyle(fontSize: 16),),
-                      ],
+                          Text('${showingProducts[index].getExpirationDate()} days left', style: const TextStyle(fontSize: 16),),
+                        ],
+                      ),
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
-          ),
-        ],
-      ),
+          ],
+        ),
+
+        ProductsPage(),
+      ][currentPageIndex],
     );
   }
 }
