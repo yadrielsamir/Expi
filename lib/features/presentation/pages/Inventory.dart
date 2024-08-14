@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:expiration_date/features/data/modles.dart';
 
-
 List<Product> productList(String name, double size, List<String> flavors) {
   return flavors.map((flavor) {
     return Product(name: name, expirationDate: 0, flavor: flavor, size: size);
@@ -14,7 +13,29 @@ List<Item> generateItems() {
       category: 'Chobani',
       sizes: [
         Size(name: '5.3 oz', products: productList('Greek Yogurt', 5.3, ['Blueberry', 'Strawberry', 'Coconut', 'Coffee', 'Peach'])),
-        Size(name: '32 oz', products: productList('Greek Yogurt', 32.0, ['Plain', 'Vanilla'])),
+        Size(name: '32 oz', products: productList('Greek Yogurt', 32.0, ['Plain Whole Milk', 'Plain Whole Milk' 'Vanilla'])),
+      ],
+    ),
+    Item(
+      category: 'Yoplait',
+      sizes: [
+        Size(name: '6 oz', products: productList('Original Yogurt', 6.0, ['Strawberry', 'Peach'])),
+        Size(name: '32 oz', products: productList('Original Yogurt', 32.0, ['Plain', 'Vanilla'])),
+      ],
+    ),
+    Item(
+      category: 'LaYogurt',
+      sizes: [
+        Size(name: '7 oz', products: productList('Total Greek Yogurt', 7.0, ['Strawberry', 'Blueberry'])),
+        Size(name: '35.3 oz', products: productList('Total Greek Yogurt', 35.3, ['Plain', 'Vanilla'])),
+      ],
+    ),
+
+    Item(
+      category: 'Oikos',
+      sizes: [
+        Size(name: '7 oz', products: productList('Total Greek Yogurt', 7.0, ['Strawberry', 'Blueberry'])),
+        Size(name: '35.3 oz', products: productList('Total Greek Yogurt', 35.3, ['Plain', 'Vanilla'])),
       ],
     ),
   ];
@@ -33,7 +54,7 @@ class _InventoryPageState extends State<InventoryPage> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: _data.length,
+      itemCount: 1,
       itemBuilder: (context, index) {
         return Padding(
           padding: const EdgeInsets.all(8.0),

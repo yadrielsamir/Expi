@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:expiration_date/core/util/addDialogBox.dart';
 import 'package:expiration_date/core/util/dialogBox.dart';
 import 'package:expiration_date/features/presentation/pages/Expired.dart';
@@ -5,7 +7,6 @@ import 'package:expiration_date/features/presentation/pages/Inventory.dart';
 import 'package:expiration_date/features/services/productService.dart';
 import 'package:flutter/material.dart';
 import 'package:expiration_date/features/data/modles.dart';
-
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -16,15 +17,19 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  List<Product> showingProducts = [];
+  List<Product> showingProducts = [Product(name: 'Chobani Yogurt', expirationDate: 0, flavor: 'NA', size: 0),
+    Product(name: 'LaYogurt Yogurt', expirationDate: 0, flavor: 'NA', size: 0),
+    Product(name: 'Oiko Yogurt', expirationDate: 0, flavor: 'NA', size: 0),
+    Product(name: 'Chobani Yogurt', expirationDate: 0, flavor: 'NA', size: 0),
+    Product(name: 'Owi Yogurt', expirationDate: 0, flavor: 'NA', size: 0),
+    Product(name: 'Activia Yogurt', expirationDate: 0, flavor: 'NA', size: 0)];
 
   final _controller = TextEditingController();
   DateTime? _selectedDate;
   String? _flavor;
   double? _size;
   int currentPageIndex = 0;
-
-
+  bool _deletePage = false;
 
   void saveNewProduct() {
     if (_controller.text.isEmpty || _selectedDate == null || _selectedDate!.difference(DateTime.now()).inHours < 0 || _flavor == null || _size == null) {
@@ -61,13 +66,28 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  void deletePage(){
+    setState(() {
+      _deletePage = !_deletePage;
+    });
+  }
+
+  void deleteProduct(int index){
+    setState(() {
+      showingProducts.remove(showingProducts[index]);
+    });
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[300],
       appBar: AppBar(
         actions: [
-        TextButton(
+          currentPageIndex == 1
+        ? TextButton(
           child: const Text('Add product to inventory', style: TextStyle(color: Colors.black, fontSize: 16),),
           onPressed: () {
             showDialog(context: context, builder: (context) {
@@ -77,7 +97,15 @@ class _HomePageState extends State<HomePage> {
               );
             });
           },
-        )],
+        )
+
+         : currentPageIndex == 0
+          ? IconButton(
+            onPressed: (){deletePage();},
+            icon: const Icon(Icons.delete))
+            : const SizedBox()
+        ],
+
         title: const Row(
           children: [
             Text(
@@ -149,8 +177,16 @@ class _HomePageState extends State<HomePage> {
                           Text(
                               '${showingProducts[index].getName()}(${showingProducts[index].getFlavor()})(${showingProducts[index].getSize()}oz)',
                               style: const TextStyle(fontSize: 16)),
+                          !_deletePage
+                          ?Text('${showingProducts[index].getExpirationDate()} days left', style: const TextStyle(fontSize: 16),)
 
-                          Text('${showingProducts[index].getExpirationDate()} days left', style: const TextStyle(fontSize: 16),),
+                          :IconButton(
+                            onPressed: () {
+                              deleteProduct(index);
+                              _deletePage = false;
+                            },
+                            icon: Icon(Icons.delete),
+                            ),
                         ],
                       ),
                     ),
