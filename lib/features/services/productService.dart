@@ -31,6 +31,10 @@ class ProductService {
     return _suggestedProductsList;
   }
 
+  void addSuggestedProduct(Product product){
+    _suggestedProductsList.add(product);
+  }
+
 
   void addProduct(Product product) {
     _productList.add(product);

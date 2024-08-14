@@ -68,7 +68,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         actions: [
         TextButton(
-          child: const Text('Add product', style: TextStyle(color: Colors.black, fontSize: 16),),
+          child: const Text('Add product to inventory', style: TextStyle(color: Colors.black, fontSize: 16),),
           onPressed: () {
             showDialog(context: context, builder: (context) {
               return AddDialogBox(

@@ -24,6 +24,21 @@ class _DialogBoxState extends State<AddDialogBox> {
   double? _selectedSize;
   final TextEditingController _controller = TextEditingController();
 
+  void saveProduct(){
+    if(_controller.text.isEmpty || _selectedFlavor == null || _selectedSize == null) {
+      return;
+    }
+    else{
+      Product newProduct = Product(name: _controller.text,
+          expirationDate: 0,
+          flavor: _selectedFlavor!,
+          size: _selectedSize!);
+      productService.addProduct(newProduct);
+      productService.addSuggestedProduct(newProduct);
+      Navigator.of(context).pop();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -99,13 +114,8 @@ class _DialogBoxState extends State<AddDialogBox> {
               children: [
                 MyButton(
                     buttonName: "Save",
-                    onPressed: () {
-                      productService.addProduct(Product(name: _controller.text,
-                      expirationDate: 0,
-                      flavor: _selectedFlavor!,
-                      size: _selectedSize!));
-                      Navigator.of(context).pop();
-                }),
+                    onPressed: () {saveProduct();},
+                ),
 
                 const SizedBox(width: 8),
 
