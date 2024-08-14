@@ -4,6 +4,15 @@ import 'package:expiration_date/features/services/chobaniService.dart';
 class ProductService {
    final List<Product> _productList = chobaniService.getChobaniList();
 
+   final List<Product> _suggestedProductsList = [
+     Product(name: 'Chobani Yogurt', expirationDate: 0, flavor: 'NA', size: 0),
+     Product(name: 'LaYogurt Yogurt', expirationDate: 0, flavor: 'NA', size: 0),
+     Product(name: 'Oiko Yogurt', expirationDate: 0, flavor: 'NA', size: 0),
+     Product(name: 'Chobani Yogurt', expirationDate: 0, flavor: 'NA', size: 0),
+     Product(name: 'Owi Yogurt', expirationDate: 0, flavor: 'NA', size: 0),
+     Product(name: 'Activia Yogurt', expirationDate: 0, flavor: 'NA', size: 0)
+   ];
+
    final List<Product> _expiredProductsList = [];
 
   List<Product> get productList => _productList;
@@ -17,6 +26,11 @@ class ProductService {
     }
     return _expiredProductsList;
   }
+
+  List<Product> getSuggestedProductsList(){
+    return _suggestedProductsList;
+  }
+
 
   void addProduct(Product product) {
     _productList.add(product);

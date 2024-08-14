@@ -1,3 +1,4 @@
+import 'package:expiration_date/core/util/addDialogBox.dart';
 import 'package:expiration_date/core/util/dialogBox.dart';
 import 'package:expiration_date/features/presentation/pages/Expired.dart';
 import 'package:expiration_date/features/presentation/pages/Products.dart';
@@ -66,12 +67,17 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Colors.grey[300],
       appBar: AppBar(
         actions: [
-        IconButton(
-          icon: const Icon(Icons.menu, size: 30,),
+        TextButton(
+          child: const Text('Add product', style: TextStyle(color: Colors.black, fontSize: 16),),
           onPressed: () {
-
-          }),
-        ],
+            showDialog(context: context, builder: (context) {
+              return AddDialogBox(
+                  controller: _controller,
+                  onCancel: () => Navigator.of(context).pop()
+              );
+            });
+          },
+        )],
         title: const Row(
           children: [
             Text(

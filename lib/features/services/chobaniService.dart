@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class ChobaniService {
   final List<String> chobaniFlavors = ['Blueberry', 'Strawberry', 'Coconut', 'Coffee', 'Peach'];
-  final List<double> chobaniSizes = [5.3, 20.1, 16.7];
+  final List<double> chobaniSizes = [5.3, 20.1, 16.7, 6.0];
   final List<Product> _chobaniList = [];
 
   List<String> getChobaniFlavors(){return chobaniFlavors;}
