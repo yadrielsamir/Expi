@@ -2,7 +2,7 @@ import 'package:expiration_date/features/presentation/pages/Loading.dart';
 import 'package:expiration_date/features/presentation/pages/Home.dart';
 import 'package:expiration_date/features/presentation/pages/Error.dart';
 import 'package:expiration_date/features/presentation/pages/Expired.dart';
-import 'package:expiration_date/features/presentation/pages/Products.dart';
+import 'package:expiration_date/features/presentation/pages/Inventory.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter{
@@ -14,8 +14,8 @@ class AppRouter{
         return MaterialPageRoute(builder: (_) => const LoadingPage());
       case 'expired':
         return MaterialPageRoute(builder: (_) => const ExpiredPage(expiredList: [],));
-      case 'products':
-        return MaterialPageRoute(builder: (_) => const ProductsPage());
+      case 'inventory':
+        return MaterialPageRoute(builder: (_) => const InventoryPage());
       default:
         return MaterialPageRoute(builder: (_) => const ErrorPage());
     }

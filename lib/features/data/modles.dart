@@ -15,3 +15,25 @@ class Product {
 
   double getSize(){return size;}
 }
+
+class Item {
+  Item({
+    required this.category,
+    required this.sizes,
+    this.isExpanded = false
+  });
+
+  String category;
+  List<Size> sizes;
+  bool isExpanded;
+}
+
+class Size {
+  Size({
+    required this.name,
+    required this.products,
+  });
+
+  String name;
+  List<Product> products;
+}

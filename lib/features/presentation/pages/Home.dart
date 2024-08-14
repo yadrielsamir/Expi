@@ -1,7 +1,7 @@
 import 'package:expiration_date/core/util/addDialogBox.dart';
 import 'package:expiration_date/core/util/dialogBox.dart';
 import 'package:expiration_date/features/presentation/pages/Expired.dart';
-import 'package:expiration_date/features/presentation/pages/Products.dart';
+import 'package:expiration_date/features/presentation/pages/Inventory.dart';
 import 'package:expiration_date/features/services/productService.dart';
 import 'package:flutter/material.dart';
 import 'package:expiration_date/features/data/modles.dart';
@@ -114,7 +114,7 @@ class _HomePageState extends State<HomePage> {
             ),
             NavigationDestination(
               icon: Badge(child: Icon(Icons.inventory)),
-              label: 'Products',
+              label: 'Inventory',
 
             ),
             NavigationDestination(
@@ -160,7 +160,7 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
 
-        ProductsPage(),
+        InventoryPage(),
 
         ExpiredPage(expiredList: showingProducts,)
       ][currentPageIndex],

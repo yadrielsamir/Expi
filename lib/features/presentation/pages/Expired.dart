@@ -1,4 +1,4 @@
-import 'package:expiration_date/features/presentation/pages/Products.dart';
+import 'package:expiration_date/features/presentation/pages/Inventory.dart';
 import 'package:expiration_date/features/services/productService.dart';
 import 'package:flutter/material.dart';
 import 'package:expiration_date/features/data/modles.dart';
