@@ -13,7 +13,7 @@ class AppRouter{
       case 'loading':
         return MaterialPageRoute(builder: (_) => const LoadingPage());
       case 'expired':
-        return MaterialPageRoute(builder: (_) => const ExpiredPage());
+        return MaterialPageRoute(builder: (_) => const ExpiredPage(expiredList: [],));
       case 'products':
         return MaterialPageRoute(builder: (_) => const ProductsPage());
       default:

@@ -155,6 +155,8 @@ class _HomePageState extends State<HomePage> {
         ),
 
         ProductsPage(),
+
+        ExpiredPage(expiredList: showingProducts,)
       ][currentPageIndex],
     );
   }

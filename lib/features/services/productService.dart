@@ -4,7 +4,19 @@ import 'package:expiration_date/features/services/chobaniService.dart';
 class ProductService {
    final List<Product> _productList = chobaniService.getChobaniList();
 
+   final List<Product> _expiredProductsList = [];
+
   List<Product> get productList => _productList;
+
+  List<Product> getExpiredProductsList(List<Product> list){
+    _expiredProductsList.clear();
+    for(Product product in list){
+      if(product.getExpirationDate() == 0){
+        _expiredProductsList.add(product);
+      }
+    }
+    return _expiredProductsList;
+  }
 
   void addProduct(Product product) {
     _productList.add(product);
