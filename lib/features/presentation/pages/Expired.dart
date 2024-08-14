@@ -14,26 +14,40 @@ class ExpiredPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: productService.getExpiredProductsList(expiredList).length,
-        itemBuilder: (context, index){
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey, )
+    if(productService.getExpiredProductsList(expiredList).isEmpty){
+      return const Center(
+        child: Text('No Expired Items', style: TextStyle(fontSize: 18),),
+      );
+    }
+    else {
+      return ListView.builder(
+          itemCount: productService
+              .getExpiredProductsList(expiredList)
+              .length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey,)
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                        '${productService.getExpiredProductsList(
+                            expiredList)[index].getName()} (${productService
+                            .getExpiredProductsList(expiredList)[index]
+                            .getFlavor()}) (${productService
+                            .getExpiredProductsList(expiredList)[index]
+                            .getSize()}oz)',
+                        style: const TextStyle(fontSize: 16)),
+                  ],
+                ),
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                      '${productService.getExpiredProductsList(expiredList)[index].getName()} (${productService.getExpiredProductsList(expiredList)[index].getFlavor()}) (${productService.getExpiredProductsList(expiredList)[index].getSize()}oz)',
-                      style: const TextStyle(fontSize: 16)),
-                ],
-              ),
-            ),
-          );
-        });;
+            );
+          });;
+    }
   }
 }

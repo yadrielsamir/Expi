@@ -132,7 +132,8 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 10.0),
 
             Expanded(
-              child: ListView.builder(
+              child: showingProducts.isNotEmpty
+            ? ListView.builder(
                 itemCount: showingProducts.length,
                 itemBuilder: (context, index){
                   return Padding(
@@ -155,6 +156,12 @@ class _HomePageState extends State<HomePage> {
                     ),
                   );
                 },
+              )
+              : const Center(
+                  child: Text(
+                  'No available products',
+                  style: TextStyle(fontSize: 18, color: Colors.black),
+                ),
               ),
             ),
           ],
