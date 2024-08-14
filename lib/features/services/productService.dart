@@ -36,7 +36,7 @@ class ProductService {
    }
 
    int productDate(DateTime date){
-    return date.difference(DateTime.now()).inDays;
+    return date.difference(DateTime.now()).inDays + 1;
    }
 
   List<Product> searchProducts(String query) {

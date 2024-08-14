@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
 
 
   void saveNewProduct() {
-    if (_controller.text.isEmpty || _selectedDate == null || _flavor == null || _size == null) {
+    if (_controller.text.isEmpty || _selectedDate == null || _selectedDate!.difference(DateTime.now()).inHours < 0 || _flavor == null || _size == null) {
       return;
     }
     else {
