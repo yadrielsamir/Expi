@@ -4,12 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:expiration_date/features/services/productService.dart';
+import 'package:expiration_date/features/services/chobaniService.dart';
 
 class DialogBox extends StatefulWidget {
   final TextEditingController controller;
   final VoidCallback onSave;
   final VoidCallback onCancel;
   final Function(DateTime?) onDateSelected;
+  final Function(String?) flavor;
+  final Function(double?) size;
 
 
   const DialogBox({
@@ -17,7 +20,9 @@ class DialogBox extends StatefulWidget {
     required this.controller,
     required this.onSave,
     required this.onCancel,
-    required this.onDateSelected
+    required this.onDateSelected,
+    required this.flavor,
+    required this.size
   });
 
   @override
@@ -28,6 +33,9 @@ class _DialogBoxState extends State<DialogBox> {
   DateTime today = DateTime.now();
   DateTime? _selectedDay;
   DateTime _focusedDay = DateTime.now();
+  String? _selectedFlavor;
+  double? _selectedSize;
+
 
   DateTime? getSelectedDay(){
     return _selectedDay;
@@ -38,7 +46,7 @@ class _DialogBoxState extends State<DialogBox> {
     return AlertDialog(
       backgroundColor: Colors.grey[300],
       content: Container(
-        height: 500,
+        height: 600,
         width: 500,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -63,6 +71,59 @@ class _DialogBoxState extends State<DialogBox> {
               return ListTile(title: Text(product.name));
             }),
             const SizedBox(height: 20),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const Text('Flavor', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+                    DropdownButton<String>(
+                      value: _selectedFlavor,
+                      hint: const Text("Select flavor"),
+                      items: chobaniService.getChobaniFlavors().map((String flavor) {
+                        return DropdownMenuItem<String>(
+                          value: flavor,
+                          child: Text(flavor),
+                        );
+                      }).toList(),
+                      onChanged: (newValue) {
+                        setState(() {
+                          _selectedFlavor = newValue;
+                          widget.flavor(_selectedFlavor);
+                        });
+                      },
+                    ),
+                  ],
+                ),
+
+                Column(
+                  children: [
+                    const Text('Size', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18 ),),
+                    DropdownButton<double>(
+                      value: _selectedSize,
+                      hint: const Text("Select size"),
+                      items: chobaniService.getChobaniSizes().map((double size) {
+                        return DropdownMenuItem<double>(
+                          value: size,
+                          child: Text(size.toString()),
+                        );
+                      }).toList(),
+                      onChanged: (newValue) {
+                        setState(() {
+                          _selectedSize = newValue;
+                          widget.size(_selectedSize);
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 20.0,),
+
             const Text(
               'Expiration Date',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),

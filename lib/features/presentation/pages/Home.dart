@@ -19,17 +19,19 @@ class _HomePageState extends State<HomePage> {
 
   final _controller = TextEditingController();
   DateTime? _selectedDate;
+  String? _flavor;
+  double? _size;
   int currentPageIndex = 0;
 
 
 
   void saveNewProduct() {
-    if (_controller.text.isEmpty || _selectedDate == null) {
+    if (_controller.text.isEmpty || _selectedDate == null || _flavor == null || _size == null) {
       return;
     }
     else {
       setState(() {
-        showingProducts.add(Product(name: _controller.text, expirationDate: productService.productDate(_selectedDate!), flavor: 'none', size: 0));
+        showingProducts.add(Product(name: _controller.text, expirationDate: productService.productDate(_selectedDate!), flavor: _flavor!, size: _size!));
         if (!productService.productInList(_controller.text)) {
           productService.addProduct(Product(name: _controller.text, expirationDate: 0, flavor: 'none', size: 0));
         }
@@ -48,6 +50,12 @@ class _HomePageState extends State<HomePage> {
         },
         onSave: saveNewProduct,
         onCancel: () => Navigator.of(context).pop(),
+        flavor: (flavor){
+          _flavor = flavor;
+        },
+        size: (size){
+          _size = size;
+        }
       );
     });
   }
@@ -132,7 +140,7 @@ class _HomePageState extends State<HomePage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                              '${showingProducts[index].getName()} (${showingProducts[index].getFlavor()}) (${showingProducts[index].getSize()}oz)',
+                              '${showingProducts[index].getName()}(${showingProducts[index].getFlavor()})(${showingProducts[index].getSize()}oz)',
                               style: const TextStyle(fontSize: 16)),
 
                           Text('${showingProducts[index].getExpirationDate()} days left', style: const TextStyle(fontSize: 16),),
