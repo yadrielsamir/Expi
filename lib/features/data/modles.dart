@@ -2,7 +2,7 @@ class Product {
 
   final String name;
   final int expirationDate;
-  final double size;
+  final double? size;
   final String flavor;
 
   Product({required this.name, required this.expirationDate, required this.flavor, required this.size});
@@ -13,17 +13,17 @@ class Product {
 
   String getFlavor(){return flavor;}
 
-  double getSize(){return size;}
+  double? getSize(){return size;}
 }
 
 class Item {
   Item({
-    required this.category,
+    required this.brand,
     required this.sizes,
     this.isExpanded = false
   });
 
-  String category;
+  String brand;
   List<Size> sizes;
   bool isExpanded;
 }

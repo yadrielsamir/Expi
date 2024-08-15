@@ -120,11 +120,14 @@ class _HomePageState extends State<HomePage> {
         ),
         backgroundColor: Colors.grey[300]
       ),
-      floatingActionButton: FloatingActionButton(
+
+      floatingActionButton: currentPageIndex == 0
+          ? FloatingActionButton(
         onPressed: addNewProduct,
         backgroundColor: Colors.grey,
-        child:const Icon(Icons.add),
-      ),
+        child: const Icon(Icons.add),
+      )
+          : null,
 
       bottomNavigationBar: NavigationBar(
         backgroundColor: Colors.grey[500],
