@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:expiration_date/features/services/productService.dart';
-import 'package:expiration_date/features/services/chobaniService.dart';
 
 class DialogBox extends StatefulWidget {
   final TextEditingController controller;
@@ -33,9 +32,8 @@ class _DialogBoxState extends State<DialogBox> {
   DateTime today = DateTime.now();
   DateTime? _selectedDay;
   DateTime _focusedDay = DateTime.now();
-  String? _selectedFlavor;
-  double? _selectedSize;
-
+  final TextEditingController _flavorController = TextEditingController();
+  final TextEditingController _sizeController = TextEditingController();
 
   DateTime? getSelectedDay(){
     return _selectedDay;
@@ -46,8 +44,8 @@ class _DialogBoxState extends State<DialogBox> {
     return AlertDialog(
       backgroundColor: Colors.grey[300],
       content: Container(
-        height: 600,
-        width: 500,
+        height: 650,
+        width: 1000,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -59,7 +57,7 @@ class _DialogBoxState extends State<DialogBox> {
                 controller: widget.controller,
                 focusNode: focusNode,
                 decoration: const InputDecoration(
-                  labelText: "Select product",
+                  labelText: "Product name",
                   border: OutlineInputBorder(),
                 ),
               );
@@ -75,49 +73,66 @@ class _DialogBoxState extends State<DialogBox> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    const Text('Flavor', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
-                    DropdownButton<String>(
-                      value: _selectedFlavor,
-                      hint: const Text("Select flavor"),
-                      items: chobaniService.getChobaniFlavors().map((String flavor) {
-                        return DropdownMenuItem<String>(
-                          value: flavor,
-                          child: Text(flavor),
+                SizedBox(
+                  width: 130,
+                  height: 100,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const Text('Flavor', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+                      const SizedBox(height: 10.0,),
+                      TypeAheadField<String?>(onSelected: (String? suggestion) {
+                        _flavorController.text = suggestion.toString();
+                        widget.flavor(suggestion.toString());
+                      }, builder: (context, controller, focusNode) {
+                        return TextField(
+                          controller: _flavorController,
+                          focusNode: focusNode,
+                          decoration: const InputDecoration(
+                            labelText: "Select flavor",
+                            border: OutlineInputBorder(),
+                          ),
                         );
-                      }).toList(),
-                      onChanged: (newValue) {
-                        setState(() {
-                          _selectedFlavor = newValue;
-                          widget.flavor(_selectedFlavor);
-                        });
-                      },
-                    ),
-                  ],
+                      }, suggestionsCallback: (value) {
+                        return productService.getFlavorsList();
+                      }, itemBuilder: (context, suggestion) {
+                        final flavor = suggestion;
+
+                        return ListTile(title: Text(flavor.toString()));
+                      }),
+                    ],
+                  ),
                 ),
 
-                Column(
-                  children: [
-                    const Text('Size', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18 ),),
-                    DropdownButton<double>(
-                      value: _selectedSize,
-                      hint: const Text("Select size"),
-                      items: chobaniService.getChobaniSizes().map((double size) {
-                        return DropdownMenuItem<double>(
-                          value: size,
-                          child: Text(size.toString()),
+                SizedBox(
+                  width: 130,
+                  height: 100,
+                  child: Column(
+                    children: [
+                      const Text('Size', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18 ),),
+                      const SizedBox(height: 10.0,),
+                      TypeAheadField<double?>(onSelected: (double? suggestion) {
+                        _sizeController.text = suggestion.toString();
+                        widget.size(suggestion);
+                      }, builder: (context, controller, focusNode) {
+                        return TextField(
+                          controller: _sizeController,
+                          focusNode: focusNode,
+                          decoration: const InputDecoration(
+
+                            labelText: "Select size",
+                            border: OutlineInputBorder(),
+                          ),
                         );
-                      }).toList(),
-                      onChanged: (newValue) {
-                        setState(() {
-                          _selectedSize = newValue;
-                          widget.size(_selectedSize);
-                        });
-                      },
-                    ),
-                  ],
+                      }, suggestionsCallback: (value) {
+                        return productService.getSizesList();
+                      }, itemBuilder: (context, suggestion) {
+                        final size = suggestion;
+
+                        return ListTile(title: Text(size.toString()));
+                      }),
+                    ],
+                  ),
                 ),
               ],
             ),

@@ -9,12 +9,14 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 class AddDialogBox extends StatefulWidget {
   final TextEditingController controller;
   final VoidCallback onCancel;
+  final VoidCallback onProductAdded;
 
 
   const AddDialogBox({
     super.key,
     required this.controller,
     required this.onCancel,
+    required this.onProductAdded
   });
 
   @override
@@ -33,7 +35,6 @@ class _DialogBoxState extends State<AddDialogBox> {
       return;
     }
     else{
-      setState(() {
       Item? item = inventoryService.findItem(_brandController.text);
       if(item == null){
         inventoryService.itemList.add(Item(brand: _brandController.text, sizes: [Size(name: _sizeController.text, products: [Product(name: _controller.text, expirationDate: 0, flavor: _flavorController.text, size:  double.tryParse(_sizeController.text))])]));
@@ -47,8 +48,8 @@ class _DialogBoxState extends State<AddDialogBox> {
           item.sizes[index].products.add(Product(name: _controller.text, expirationDate: 0, flavor: _flavorController.text, size:  double.tryParse(_sizeController.text)));
         }
       }
+      widget.onProductAdded();
       Navigator.of(context).pop();
-      });
     }
   }
 
@@ -66,7 +67,7 @@ class _DialogBoxState extends State<AddDialogBox> {
             TextField(
                 controller: _controller,
                 decoration: const InputDecoration(
-                  labelText: "Product Name",
+                  labelText: "Product name",
                   border: OutlineInputBorder(),
                 ),
               ),

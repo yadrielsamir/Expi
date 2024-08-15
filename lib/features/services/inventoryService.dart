@@ -67,31 +67,23 @@ class InventoryService{
       Item(
         brand: 'Oikos',
         sizes: [
-          Size(name: '5.3', products: productList(' Greek Yogurt', 5.3, ['Strawberry', 'Mixed Berry', 'Vanilla'])),
-          Size(name: '32.0', products: productList(' Greek Yogurt', 32.0, ['Plain', 'Vanilla'])),
+          Size(name: '5.3', products: productList('Greek Yogurt', 5.3, ['Strawberry', 'Mixed Berry', 'Vanilla'])),
+          Size(name: '32.0', products: productList('Greek Yogurt', 32.0, ['Plain', 'Vanilla'])),
         ],
       ),
 
       Item(
         brand: 'Danimals',
         sizes: [
-          Size(name: '3.1', products: productList(' Greek Yogurt', 3.1, ['Strawberry', 'Strawberry Banana'])),
+          Size(name: '3.1', products: productList('Greek Yogurt', 3.1, ['Strawberry', 'Strawberry Banana'])),
         ],
       ),
 
       Item(
-        brand: 'Oikos',
+        brand: 'Activia',
         sizes: [
-          Size(name: '7.0', products: productList('Total Greek Yogurt', 7.0, ['Strawberry', 'Blueberry'])),
-          Size(name: '32.0', products: productList('Total Greek Yogurt', 35.3, ['Plain', 'Vanilla'])),
-        ],
-      ),
-
-      Item(
-        brand: 'Oikos',
-        sizes: [
-          Size(name: '7.0', products: productList('Total Greek Yogurt', 7.0, ['Strawberry', 'Blueberry'])),
-          Size(name: '35.3', products: productList('Total Greek Yogurt', 35.3, ['Plain', 'Vanilla'])),
+          Size(name: '4.0', products: productList('Original Yogurt', 4, ['Strawberry', 'Blueberry', 'Mixed Berry', 'Strawberry Banana'])),
+          Size(name: '16.0', products: productList('Original Yogurt 4-pack', 16, ['Strawberry', 'Blueberry', 'Mixed Berry', 'Strawberry Banana'])),
         ],
       ),
     ];

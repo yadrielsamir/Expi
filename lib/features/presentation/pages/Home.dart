@@ -38,9 +38,6 @@ class _HomePageState extends State<HomePage> {
     else {
       setState(() {
         showingProducts.add(Product(name: _controller.text, expirationDate: productService.productDate(_selectedDate!), flavor: _flavor!, size: _size!));
-        if (!productService.productInList(_controller.text)) {
-          productService.addProduct(Product(name: _controller.text, expirationDate: 0, flavor: 'none', size: 0));
-        }
         _controller.clear();
       });
       Navigator.of(context).pop();
@@ -78,7 +75,10 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-
+  void refreshInventory() {
+    setState(() {
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,6 +92,7 @@ class _HomePageState extends State<HomePage> {
           onPressed: () {
             showDialog(context: context, builder: (context) {
               return AddDialogBox(
+                onProductAdded: refreshInventory,
                   controller: _controller,
                   onCancel: () => Navigator.of(context).pop()
               );
