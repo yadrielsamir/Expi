@@ -44,12 +44,14 @@ class _DialogBoxState extends State<DialogBox> {
     return AlertDialog(
       backgroundColor: Colors.grey[300],
       content: Container(
-        height: 650,
+        height: 655,
         width: 1000,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             const SizedBox(height: 10),
+            const Text('Product Name', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+            const SizedBox(height: 5.0,),
             TypeAheadField<Product?>(onSelected: (Product? suggestion) {
               widget.controller.text = suggestion!.name;
             }, builder: (context, controller, focusNode) {
@@ -80,7 +82,7 @@ class _DialogBoxState extends State<DialogBox> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       const Text('Flavor', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
-                      const SizedBox(height: 10.0,),
+                      const SizedBox(height: 5.0,),
                       TypeAheadField<String?>(onSelected: (String? suggestion) {
                         _flavorController.text = suggestion.toString();
                         widget.flavor(suggestion.toString());
@@ -110,7 +112,7 @@ class _DialogBoxState extends State<DialogBox> {
                   child: Column(
                     children: [
                       const Text('Size', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18 ),),
-                      const SizedBox(height: 10.0,),
+                      const SizedBox(height: 5.0,),
                       TypeAheadField<double?>(onSelected: (double? suggestion) {
                         _sizeController.text = suggestion.toString();
                         widget.size(suggestion);

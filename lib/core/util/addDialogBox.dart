@@ -58,12 +58,12 @@ class _DialogBoxState extends State<AddDialogBox> {
     return AlertDialog(
       backgroundColor: Colors.grey[300],
       content: Container(
-        height: 400,
+        height: 450,
         width: 200,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            // const SizedBox(height: 10),
+            const Text('Product Name', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
             TextField(
                 controller: _controller,
                 decoration: const InputDecoration(
@@ -71,7 +71,6 @@ class _DialogBoxState extends State<AddDialogBox> {
                   border: OutlineInputBorder(),
                 ),
               ),
-            const SizedBox(height: 10),
 
 
             Column(
@@ -80,7 +79,7 @@ class _DialogBoxState extends State<AddDialogBox> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    const Text('Brand:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+                    const Text('Brand', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
                     TypeAheadField<String?>(onSelected: (String? suggestion) {
                       _brandController.text = suggestion.toString();
                     }, builder: (context, controller, focusNode) {
@@ -101,7 +100,7 @@ class _DialogBoxState extends State<AddDialogBox> {
                     }),
 
                     const SizedBox(height: 10.0,),
-                    const Text('Flavor:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+                    const Text('Flavor', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
                     TypeAheadField<String?>(onSelected: (String? suggestion) {
                   _flavorController.text = suggestion.toString();
                 }, builder: (context, controller, focusNode) {
@@ -122,7 +121,7 @@ class _DialogBoxState extends State<AddDialogBox> {
                     }),
 
                     const SizedBox(height: 10.0,),
-                    const Text('Size:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+                    const Text('Size', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
                     TypeAheadField<double?>(onSelected: (double? suggestion) {
                       _sizeController.text = suggestion.toString();
                     }, builder: (context, controller, focusNode) {
